@@ -4,7 +4,7 @@
 
 This project rebuilds, on public data, the same type of analysis I used at Tokyo Restaurant Group to reduce operating expenses by 8% - forecasting demand and aligning staffing to it rather than staffing on a flat, intuition-based schedule.
 
-## Buisness Problem
+## Business Problem
 
 Most retail/restaurant operations staff on a fixed weekly schedule that doesn't flex with actual demand. That creates two costly failure modes: overstaffing during predictably slow periods, and understaffing during demand spikes. 
 

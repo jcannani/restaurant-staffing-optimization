@@ -1,6 +1,6 @@
 # Demand-Driven Staffing Optimization
 
-**Can we cut labor costs without hurting service by staffing to predicted demand instead of a fixed schedule?**
+**Can staffing to predicted demand, instead of a flat schedule, protect service on busy days without raising labor cost?**
 
 [One-page executive summary (PDF)](staffing_executive_summary.pdf)
 
@@ -17,6 +17,8 @@ Most retail/restaurant operations staff on a fixed weekly schedule that doesn't 
 [Rossmann Store Sales](https://www.kaggle.com/competitions/rossmann-store-sales) (Kaggle) - daily sales for 1,115 stores, including promotions, holidays, and store metadata.
 
 Rossmann doesn't include actual staffing data, so I built a transparent, documented staffing rule from sales volume (2 minimum staff + 1 per $1,500 in daily sales) - a normal step in operational analytics when real staffing data isn't public.
+
+Rossmann is a retail chain, not a restaurant; I use it as a stand-in for any store-based operation where daily demand drives staffing.
 
 ## Method
 

@@ -26,10 +26,19 @@ Rossmann doesn't include actual staffing data, so I built a transparent, documen
 
 ## Results
 
-- **Forecast accuracy:** improved from a 13.0% MAPE baseline (day-of-week average) to **9.8% MAPE** using gradient boosting with promo/holiday features - a ~25% relative improvement.
-- **Feature importance:** day-of-week drove ~79% of the model's predictions, promotions ~18%, holidays had minimal impact for this store.
-- **Demand pattern:** Sunday sales averaged **$11,336** - 73% higher than the weekday average.
-- **Staffing trade-off:** demand-driven staffing cost **$840 more** (1.1%) over a 92-day test period than a flat 7-person/day schedule - but the fixed schedule would have **understaffed the store on 21 of 92 days (22.8%)**, every one of them a high-demand day. For roughly $9/day extra, demand-driven staffing avoids understaffing on nearly a quarter of operating days.
+**Store 85 deep dive** (test period: May-Jul 2015, 92 open days)
+- Forecast error (MAPE): 13.0% day-of-week baseline -> 8.7% gradient boosting
+- Demand-driven staffing cost $2,160 more than a flat 7-person schedule (+2.8%)
+- The flat schedule would be understaffed on 23 of 92 days (25.0%), all high-demand days (mostly Sundays and Mondays)
+
+**30 randomly sampled stores** (`random_state=42`; per-store results in `data/results_30_stores.csv`)
+- Model beat the baseline in 30 of 30 stores: average MAPE 16.7% -> 11.1%
+- Demand-driven staffing cost +0.4% on average (cheaper in 14 of 30 stores)
+- A flat schedule would be understaffed on 30.5% of test days
+
+**Assumptions and limits**
+- Staffing rule is an assumption (2 minimum staff + 1 per $1,500 predicted sales; $15/hr, 8-hour shifts), since real schedules are not public
+- One 3-month test window; features are calendar and promotion signals only
 
 ![Demand vs. Staffing](dashboard/demand_vs_staffing.png)
 

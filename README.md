@@ -2,6 +2,8 @@
 
 **Can we cut labor costs without hurting service by staffing to predicted demand instead of a fixed schedule?**
 
+[One-page executive summary (PDF)](staffing_executive_summary.pdf)
+
 This project rebuilds, on public data, the same type of analysis I used at Tokyo Restaurant Group to reduce operating expenses by 8% - forecasting demand and aligning staffing to it rather than staffing on a flat, intuition-based schedule.
 
 ## Business Problem
@@ -12,7 +14,7 @@ Most retail/restaurant operations staff on a fixed weekly schedule that doesn't 
 
 ## Data
 
-[Rossmann Store Sales](https://www.kaggle.com/competitions/rossmann-store-sales) (Kaggle) - daily sales for 1.115 stores, including promotions, holidays, and store metadata.
+[Rossmann Store Sales](https://www.kaggle.com/competitions/rossmann-store-sales) (Kaggle) - daily sales for 1,115 stores, including promotions, holidays, and store metadata.
 
 Rossmann doesn't include actual staffing data, so I built a transparent, documented staffing rule from sales volume (2 minimum staff + 1 per $1,500 in daily sales) - a normal step in operational analytics when real staffing data isn't public.
 
@@ -23,6 +25,8 @@ Rossmann doesn't include actual staffing data, so I built a transparent, documen
 3. Built an improved forecast using gradient boosting, adding promotions and holiday features
 4. Converted the forecast into a staffing recommendation using a documented rule
 5. Compared total labor cost: demand-driven staffing vs. a flat fixed schedule
+6. Wrapped the whole pipeline in one function and checked it reproduces the Store 85 results
+7. Ran it on a random sample of 30 stores to test whether the results hold beyond one store
 
 ## Results
 
@@ -39,6 +43,7 @@ Rossmann doesn't include actual staffing data, so I built a transparent, documen
 **Assumptions and limits**
 - Staffing rule is an assumption (2 minimum staff + 1 per $1,500 predicted sales; $15/hr, 8-hour shifts), since real schedules are not public
 - One 3-month test window; features are calendar and promotion signals only
+- Data check: `StateHoliday` has mixed types in the raw file; it is read with `low_memory=False` and compared as text so holidays are flagged correctly
 
 ![Demand vs. Staffing](dashboard/demand_vs_staffing.png)
 
@@ -48,4 +53,4 @@ Python (pandas, scikit-learn), matplotlib
 
 ## Author
 
-Joanna Ni - [Linkedin](https://linkedin.com/in/joannani)
+Joanna Ni - [LinkedIn](https://linkedin.com/in/joannani)

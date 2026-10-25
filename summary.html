@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Staffing Executive Summary</title>
+  <style>
+    @page { size: Letter; margin: 0.4in; }
+    @media print { body { margin: 0 auto; } }
+    body { font-family: Arial, sans-serif; max-width: 750px; margin: 30px auto; color: #222;
+           font-size: 12px; line-height: 1.35; }
+    h1 { color: #1d4e6e; border-bottom: 3px solid #2a6f97; padding-bottom: 6px; margin-bottom: 4px; }
+    h2 { color: #1d4e6e; font-size: 15px; border-bottom: 1px solid #cfd6df;
+         padding-bottom: 2px; margin: 12px 0 5px; }
+    .subtitle { color: #555; margin: 0; }
+    .question { font-size: 16px; font-style: italic; margin: 10px 0; }
+    .stats { display: flex; gap: 10px; margin: 14px 0; }
+    .box { flex: 1; border: 1px solid #d5dbe3; border-radius: 6px; padding: 10px 6px;
+           text-align: center; background: #f6f8fa; }
+    .number { font-size: 22px; font-weight: bold; color: #1d4e6e; }
+    .label { font-size: 10px; color: #555; margin-top: 4px; }
+    ul { margin: 4px 0; padding-left: 20px; }
+    li { margin-bottom: 4px; }
+    img { width: 45%; display: block; margin: 4px auto 0; }
+    .caption { font-size: 11px; color: #666; text-align: center; margin-top: 2px; }
+    .footer { margin-top: 14px; padding-top: 6px; border-top: 1px solid #cfd6df;
+              font-size: 11px; color: #666; }
+  </style>
+</head>
+<body>
+
+  <h1>Demand-Driven Staffing Optimization</h1>
+  <p class="subtitle">Executive Summary - Joanna Ni</p>
+
+  <p class="question">Can staffing to predicted demand, instead of a flat schedule, protect service on busy days without raising labor cost?</p>
+
+  <div class="stats">
+    <div class="box">
+      <div class="number">16.7% &rarr; 11.1%</div>
+      <div class="label">AVG. FORECAST ERROR (MAPE), BASELINE VS. MODEL</div>
+    </div>
+    <div class="box">
+      <div class="number">30 / 30</div>
+      <div class="label">STORES WHERE THE MODEL BEAT THE BASELINE</div>
+    </div>
+    <div class="box">
+      <div class="number">+0.4%</div>
+      <div class="label">AVG. LABOR COST, DEMAND-DRIVEN VS. FIXED</div>
+    </div>
+    <div class="box">
+      <div class="number">30.5%</div>
+      <div class="label">OF DAYS A FIXED SCHEDULE WOULD UNDERSTAFF</div>
+    </div>
+  </div>
+
+  <h2>Approach</h2>
+  <ul>
+    <li>Trained a gradient boosting model on Rossmann Store Sales data (Kaggle; 1,115 stores, daily) using day of week, promotions, and holiday flags. Tested on the final 3 months, which the model never saw.</li>
+    <li>Converted each day's forecast into a staffing level with a documented assumption (2 minimum staff + 1 per $1,500 in predicted sales; $15/hr, 8-hour shifts). Real staffing data is not public.</li>
+    <li>Compared against a flat schedule sized to average demand. Developed on one store (Store 85), then repeated on a random sample of 30 stores.</li>
+  </ul>
+
+  <h2>Key findings</h2>
+  <ul>
+    <li><b>The forecast improves in every store tested.</b> Average error fell by about one-third (16.7% to 11.1% MAPE), and the model beat the day-of-week baseline in all 30 stores.</li>
+    <li><b>Cost is roughly neutral; risk is not.</b> Demand-driven staffing cost +0.4% on average (cheaper in 14 of 30 stores), while a flat schedule would be understaffed on 30.5% of days.</li>
+    <li><b>Store 85 deep dive:</b> model error 13.0% to 8.7%; demand-driven staffing cost $2,160 more (+2.8%) over 92 days, but a 7-person flat schedule would be short on 23 of 92 days, all high-demand days.</li>
+  </ul>
+
+  <h2>Store 85: demand vs. staffing recommendation</h2>
+  <img src="dashboard/demand_vs_staffing.png" alt="Store 85 demand vs staffing">
+  <p class="caption">The flat schedule (gray) cannot follow the weekly demand spikes; the recommended staffing (orange) does.</p>
+
+  <h2>All 30 sampled stores: forecast error, baseline vs. model</h2>
+  <img src="dashboard/error_by_store.png" alt="Forecast error by store">
+  <p class="caption">Each pair is one store; the model (orange) sits below the baseline (gray) in every store.</p>
+
+  <div class="footer">
+    Limitations: the staffing rule and wage are assumptions, not real schedules; one 3-month test window; features are calendar and promotion signals only.<br>
+    Code and data: github.com/jcannani/restaurant-staffing-optimization | Tools: Python (pandas, scikit-learn, matplotlib) | nijoanna16@gmail.com
+  </div>
+
+</body>
+</html>
